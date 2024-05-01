@@ -2,7 +2,6 @@ const filmRow = document.querySelector(".filmRow");
 const inp = document.querySelector(".form-control");
 const btnforSearch = document.querySelector(".btnforSearch")
 
-console.log(btnforSearch)
 const url = "https://fake-coffee-api.vercel.app/api"
 fetch(url)
     .then(res=> res.json())

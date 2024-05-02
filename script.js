@@ -2,7 +2,37 @@ const filmRow = document.querySelector(".filmRow");
 const inp = document.querySelector(".form-control");
 const btnforSearch = document.querySelector(".btnforSearch")
 
+const loadMore = document.querySelector(".load-more-btn")
+
 const url = "https://fake-coffee-api.vercel.app/api"
+
+
+function ProductLoad() {
+fetch(url)
+    .then(res=> res.json())
+    .then(datas => {
+        console.log(datas)
+        for(let i = 0; i < datas.length; i++) {
+            filmRow.innerHTML += `
+            <div class="col-sm-12 col-md-4 col-lg-4 card mt-5 ">
+                    <img src="${datas[i].image_url}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <h5 class="card-title">${datas[i].name}</h5>
+                      <p class="card-text">${datas[i].description}</p>
+                      <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                  </div>
+            `
+        }
+    })  
+}
+
+
+loadMore.addEventListener("click", () => {
+  ProductLoad();
+});
+
+
 fetch(url)
     .then(res=> res.json())
     .then(datas => {
@@ -22,7 +52,7 @@ fetch(url)
     })  
     
 btnforSearch.addEventListener("click", function() {
-  const searchTerm = inp.value.toLowerCase().trim()
+  const searchItem = inp.value.toLowerCase().trim()
 
   fetch(url)
   .then(res=> res.json())
@@ -31,7 +61,7 @@ btnforSearch.addEventListener("click", function() {
     filmRow.innerHTML = ''
 
     datas.forEach(data => {
-      if(data.name.toLowerCase().includes(searchTerm)) {
+      if(data.name.toLowerCase().includes(searchItem)) {
         filmRow.innerHTML += `
         <div class="col-sm-12 col-md-4 col-lg-4 card mt-5 ">
                 <img src="${data.image_url}" class="card-img-top" alt="...">
